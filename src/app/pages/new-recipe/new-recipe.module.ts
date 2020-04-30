@@ -8,6 +8,8 @@ import { NewRecipePageRoutingModule } from './new-recipe-routing.module';
 
 import { NewRecipePage } from './new-recipe.page';
 import {IngredientFormComponent} from '../../components/ingredient-form/ingredient-form.component';
+import {IngredientFormUnitsComponent} from '../../components/ingredient-form-units/ingredient-form-units.component';
+import {IngredientListComponent} from '../../components/ingredient-list/ingredient-list.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,6 @@ import {IngredientFormComponent} from '../../components/ingredient-form/ingredie
     IonicModule,
     NewRecipePageRoutingModule
   ],
-  declarations: [NewRecipePage, IngredientFormComponent]
+    declarations: [NewRecipePage, IngredientFormComponent, IngredientFormUnitsComponent, IngredientListComponent]
 })
 export class NewRecipePageModule {}
