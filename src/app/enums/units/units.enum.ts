@@ -1,4 +1,4 @@
 export enum Units {
-    GRM,
-    ML
+    GRM= 'Grammes',
+    ML= 'Millilitres'
 }

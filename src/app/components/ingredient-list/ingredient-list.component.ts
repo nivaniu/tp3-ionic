@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Ingredient} from '../../objects/ingredient/ingredient';
 import {Units} from '../../enums/units/units.enum';
 
@@ -8,7 +8,7 @@ import {Units} from '../../enums/units/units.enum';
     styleUrls: ['./ingredient-list.component.scss'],
 })
 export class IngredientListComponent implements OnInit {
-    ingredients: Ingredient[];
+  @Input() ingredients: Ingredient[];
 
     constructor() {
         this.ingredients = [new Ingredient('TestName', 12, Units.GRM)];
