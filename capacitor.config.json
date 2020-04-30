@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "tp3-ionic",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
