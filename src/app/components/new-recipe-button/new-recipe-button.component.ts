@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {NewRecipePageModule} from '../../pages/new-recipe/new-recipe.module';
+import {NewRecipePage} from '../../pages/new-recipe/new-recipe.page';
 
 @Component({
     selector: 'app-new-recipe-button',
@@ -17,16 +17,16 @@ export class NewRecipeButtonComponent implements OnInit {
     }
 
     onNewRecipeClicked() {
-      this.openModal();
+        this.openModal();
     }
 
     private async openModal() {
         const modal = await this.modalController.create({
-          component: NewRecipePageModule,
-          componentProps: {
-            paramId: 1,
-            paramTitle: 'New Recipe'
-          }
+            component: NewRecipePage,
+            componentProps: {
+                paramId: 1,
+                paramTitle: 'New Recipe'
+            }
         });
         modal.onDidDismiss().then((dataReturned) => {
             if (dataReturned != null) {
