@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-card-header (click)="changeState()">
+    <ion-card-title>
+      {{title}}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content *ngIf="opened">
+    <ion-list>
+      <app-titled-select *ngFor="let timeOfDay of timesOfDay" [title]="timeOfDay"></app-titled-select>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,14 @@
+<ion-grid>
+  <ion-row>
+  <ion-col>
+    {{title}}
+  </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-select (ionChange)="onChanged($event)">
+        <ion-select-option *ngFor="let recipe of recipes"  [value]="recipe.name">{{recipe.name}}</ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -4,6 +4,7 @@ export class Recipe {
     name: string;
     ingredients: Ingredient[];
     description: string;
+    open = false;
 
     constructor(name, ing, desc) {
         this.ingredients = ing;

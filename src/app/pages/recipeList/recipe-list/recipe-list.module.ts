@@ -8,14 +8,21 @@ import {RecipeListPageRoutingModule} from './recipe-list-routing.module';
 
 import {RecipeListPage} from './recipe-list.page';
 import {NewRecipeButtonComponent} from '../../../components/new-recipe-button/new-recipe-button.component';
+import {RecipeListComponent} from '../../../components/recipe-list/recipe-list.component';
+import {NewRecipePageModule} from '../../new-recipe/new-recipe.module';
+import {FooterComponent} from '../../../components/footer/footer.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecipeListPageRoutingModule
+    RecipeListPageRoutingModule,
+    NewRecipePageModule
   ],
-    declarations: [RecipeListPage, NewRecipeButtonComponent]
+  exports: [
+    FooterComponent
+  ],
+  declarations: [RecipeListPage, NewRecipeButtonComponent, RecipeListComponent, FooterComponent]
 })
 export class RecipeListPageModule {}

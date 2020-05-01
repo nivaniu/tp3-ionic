@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Planning</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <app-planning-day-card *ngFor="let day of daysOfWeek" [title]="day"></app-planning-day-card>
+</ion-list>
+</ion-content>
+<app-footer></app-footer>

@@ -1,0 +1,9 @@
+<ion-card >
+    <ion-card-header (click)="changeState()">
+        <ion-card-title>{{recipe.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="recipe.open">
+        <p>{{recipe.description}}</p>
+        <app-ingredient-list [ingredients]="recipe.ingredients"></app-ingredient-list>
+    </ion-card-content>
+</ion-card>

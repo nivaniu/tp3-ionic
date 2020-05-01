@@ -12,12 +12,15 @@ import {IngredientFormUnitsComponent} from '../../components/ingredient-form-uni
 import {IngredientListComponent} from '../../components/ingredient-list/ingredient-list.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NewRecipePageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        NewRecipePageRoutingModule
+    ],
+    exports: [
+        IngredientListComponent
+    ],
     declarations: [NewRecipePage, IngredientFormComponent, IngredientFormUnitsComponent, IngredientListComponent]
 })
 export class NewRecipePageModule {}
