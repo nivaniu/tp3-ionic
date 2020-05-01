@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Units} from '../../enums/units/units.enum';
 import {Ingredient} from '../../objects/ingredient/ingredient';
 import {Events} from 'ionic-angular';
+import {EventKeys} from '../../enums/event-keys.enum';
 
 @Component({
     selector: 'app-ingredient-form-units',
@@ -33,7 +34,7 @@ export class IngredientFormUnitsComponent implements OnInit {
 
     public onClickAdd() {
         this.ingredients[this.ingredients.length] = new Ingredient(this.name, this.quantity, this.unit);
-        this.events.publish('ingredient:created', this.ingredients[this.ingredients.length - 1]);
+        this.events.publish(EventKeys.INGREDIENT_CREATED, this.ingredients[this.ingredients.length - 1]);
     }
 
     ngOnInit() {

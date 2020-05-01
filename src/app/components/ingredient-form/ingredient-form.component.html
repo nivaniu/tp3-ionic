@@ -1,16 +1,10 @@
-<ion-card>
-    <ion-header>
-        <ion-card-title>
-            New recipe
-        </ion-card-title>
-    </ion-header>
-</ion-card>
-<ion-card>
+<ion-card class="ion-no-margin">
     <ion-card-content>
         <ion-grid>
             <ion-row>
                 <ion-col>
                     <ion-input
+                            [(ngModel)]="name"
                     placeholder="Recipe name"
                     >
                     </ion-input>
