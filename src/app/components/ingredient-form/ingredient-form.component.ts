@@ -6,9 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ingredient-form.component.scss'],
 })
 export class IngredientFormComponent implements OnInit {
+    desc: string;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {}
 
+    onClickSave() {
+    }
+
+    onClickCancel() {
+    }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Units} from '../../enums/units/units.enum';
 import {Ingredient} from '../../objects/ingredient/ingredient';
-import {Recipe} from '../../objects/recipe/recipe';
+import {Events} from 'ionic-angular';
 
 @Component({
     selector: 'app-ingredient-form-units',
@@ -10,16 +10,16 @@ import {Recipe} from '../../objects/recipe/recipe';
 })
 export class IngredientFormUnitsComponent implements OnInit {
     name: string;
-    desc: string;
     quantity: number;
     grm = 'GRM';
     ml = 'ML';
     unit = Units.GRM;
     ingredients: Ingredient[];
-    recipe: Recipe;
+    events: Events;
 
-    constructor() {
+    constructor(events: Events) {
         this.ingredients = [];
+        this.events =  events;
     }
 
     public onUnitsSelected(event) {
@@ -31,19 +31,9 @@ export class IngredientFormUnitsComponent implements OnInit {
         }
     }
 
-    public onClickSave() {
-        this.recipe = new Recipe(this.name, this.ingredients, this.desc);
-        console.log(this.recipe);
-    }
-
-    public onClickCancel() {
-        this.name = '';
-        this.desc = '';
-        this.quantity = 0;
-    }
-
     public onClickAdd() {
         this.ingredients[this.ingredients.length] = new Ingredient(this.name, this.quantity, this.unit);
+        this.events.publish('ingredient:created', this.ingredients[this.ingredients.length - 1]);
     }
 
     ngOnInit() {
