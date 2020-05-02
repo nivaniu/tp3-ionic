@@ -6,7 +6,8 @@
   </ion-card-header>
   <ion-card-content *ngIf="opened">
     <ion-list>
-      <app-titled-select *ngFor="let timeOfDay of timesOfDay" [title]="timeOfDay"></app-titled-select>
+<!--      <app-titled-select *ngFor="let timeOfDay of timesOfDay" [title]="timeOfDay" [value]="recipes[timesOfDay.indexOf(timeOfDay)]" [id]="timeOfDay" [eventKey]="title+timeOfDay" placeHolder="Choose a recipe"></app-titled-select>-->
+      <app-titled-select *ngFor="let timeOfDay of timesOfDay" [title]="timeOfDay" [value]="recipes==null? null: recipes[timesOfDay.indexOf(timeOfDay)]" [id]="timeOfDay" [eventKey]="title+timeOfDay" placeHolder="Choose a recipe"></app-titled-select>
     </ion-list>
   </ion-card-content>
 </ion-card>

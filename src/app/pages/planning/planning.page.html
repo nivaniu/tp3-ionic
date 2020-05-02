@@ -1,12 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Planning</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+        <ion-title slot="start">Planning</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="changeState()"><ion-icon name="clipboard-outline"></ion-icon></ion-button>
+            <ion-button (click)="onClickPrevWeek()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+            <ion-select [formControl]="weekSelect">
+                <ion-select-option *ngFor="let i of weekList" [value]="i">{{i}}</ion-select-option>
+            </ion-select>
+            <ion-button (click)="onClickNextWeek()">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-button>
 
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-header>
 <ion-content>
-<ion-list>
-  <app-planning-day-card *ngFor="let day of daysOfWeek" [title]="day"></app-planning-day-card>
-</ion-list>
+    <ion-list>
+        <app-planning-day-card *ngFor="let day of daysOfWeek" [title]="day" [eventKey]="eventKey" [recipes]="currentWeek.getRecipes(getMeRightEnum(day))"></app-planning-day-card>
+    </ion-list>
 </ion-content>
 <app-footer></app-footer>

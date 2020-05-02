@@ -6,8 +6,8 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-select (ionChange)="onChanged($event)">
-        <ion-select-option *ngFor="let recipe of recipes"  [value]="recipe.name">{{recipe.name}}</ion-select-option>
+      <ion-select [formControl]="selectControl" (ionChange)="onChanged($event)" [placeholder]="value==null?placeHolder:value.name">
+        <ion-select-option *ngFor="let recipe of recipes"  [value]="recipe">{{recipe.name}}</ion-select-option>
       </ion-select>
     </ion-col>
   </ion-row>

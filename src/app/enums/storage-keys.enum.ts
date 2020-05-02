@@ -1,3 +1,4 @@
 export enum StorageKeys {
-    RECIPE= 'user_recipes'
+    RECIPE = 'user_recipes',
+    RECIPES_PLANNING = 'recipes_planning'
 }
