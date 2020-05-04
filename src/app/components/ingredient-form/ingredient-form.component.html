@@ -26,7 +26,7 @@
             </ion-row>
             <ion-row>
                 <ion-col>
-                    <ion-button (click)="onClickSave()"color="primary">Save</ion-button>
+                    <ion-button (click)="onClickSave()" [disabled]="validate()" color="primary">Save</ion-button>
                 </ion-col>
                 <ion-col>
                     <ion-button (click)="onClickCancel()" color="danger">Cancel</ion-button>

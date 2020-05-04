@@ -1,0 +1,17 @@
+<ion-card>
+  <ion-card-header (click)="open = !open">
+    <ion-card-title>
+      {{title}}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content *ngIf="open">
+    <ion-label>Dinner</ion-label>
+    <ion-select [placeholder]="placeholder1" (ionChange)="onRecipeChosen($event)" okText="Okay" cancelText="Dismiss">
+      <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
+    </ion-select>
+    <ion-label>Sapper</ion-label>
+    <ion-select [placeholder]="placeholder2" (ionChange)="onRecipeChosen2($event)" okText="Okay" cancelText="Dismiss">
+      <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
+    </ion-select>
+  </ion-card-content>
+</ion-card>

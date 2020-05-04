@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'planning',
+    redirectTo: 'shopping',
     pathMatch: 'full'
   },
   {
@@ -22,6 +22,14 @@ const routes: Routes = [
   {
     path: 'planning',
     loadChildren: () => import('./pages/planning/planning.module').then( m => m.PlanningPageModule)
+  },
+  {
+    path: 'week-planning',
+    loadChildren: () => import('./pages/week-planning/week-planning.module').then( m => m.WeekPlanningPageModule)
+  },
+  {
+    path: 'shopping',
+    loadChildren: () => import('./pages/shopping/shopping.module').then( m => m.ShoppingPageModule)
   },
 ];
 

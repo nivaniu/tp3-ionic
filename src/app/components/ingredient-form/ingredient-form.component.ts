@@ -17,6 +17,7 @@ export class IngredientFormComponent implements OnInit {
     ingredients: Ingredient[];
     recipe: Recipe;
     dataProvider: DataProviderService;
+
     constructor(events: Events, dataProviderService: DataProviderService) {
         this.events = events;
         this.dataProvider = dataProviderService;
@@ -32,9 +33,14 @@ export class IngredientFormComponent implements OnInit {
     onClickSave() {
         this.recipe = new Recipe(this.name, this.ingredients, this.desc);
         this.dataProvider.saveRecipe(this.recipe);
+        this.events.publish(EventKeys.NEW_RECIPE_MODAL_CLOSED);
     }
 
     onClickCancel() {
         this.events.publish(EventKeys.NEW_RECIPE_MODAL_CLOSED);
+    }
+
+    validate() {
+        return !(this.ingredients.length !== 0 && this.name.trim() !== '');
     }
 }

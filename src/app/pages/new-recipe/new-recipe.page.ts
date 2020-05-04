@@ -19,10 +19,8 @@ export class NewRecipePage implements OnInit {
     }
 
     ngOnInit() {
-        console.log('new-recipe-page', this.navParams);
         this.modalId = this.navParams.data.paramId;
         this.modalTitle = this.navParams.data.paramTitle;
-        console.log(this.modalId, this.modalTitle);
     }
 
     private async closeModal() {
