@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from '../../objects/recipe/recipe';
-import {DataProviderService} from '../../services/dataProviders/data-provider.service';
-import {Events} from 'ionic-angular';
-import {EventKeys} from '../../enums/event-keys.enum';
 
 @Component({
     selector: 'app-recipe-list',

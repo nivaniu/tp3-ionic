@@ -1,9 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from '../../objects/recipe/recipe';
 import {DataProviderService} from '../../services/dataProviders/data-provider.service';
-import {Events} from 'ionic-angular';
-import {EventKeys} from '../../enums/event-keys.enum';
-import {FormControl} from '@angular/forms';
+import {GlobalEventsService} from '../../services/events/global-events.service';
 
 @Component({
     selector: 'app-week-day',
@@ -18,12 +16,13 @@ export class WeekDayComponent implements OnInit {
     placeholder1 = this.defaultPlaceHolder;
     placeholder2 = this.defaultPlaceHolder;
     open = false;
-    constructor(private dataProviderService: DataProviderService, private events: Events) {
+
+    constructor(private eventsService: GlobalEventsService, private dataProviderService: DataProviderService) {
         this.selectedRecipes = new Array<Recipe>(2);
+        console.log('Recipes recieved', this.recipes);
     }
 
     ngOnInit() {
-        this.dataProviderService.getAllRecipes((data) => this.recipes = data);
         this.dataProviderService.getWeekRecipe(this.title, (data) => {
                 if (data != null) {
                     this.selectedRecipes = data;
@@ -41,12 +40,16 @@ export class WeekDayComponent implements OnInit {
 
     onRecipeChosen(event: CustomEvent) {
         this.selectedRecipes[0] = event.detail.value;
-        this.events.publish(EventKeys.PLANNING_MODIFIED, this.title, this.selectedRecipes);
+        this.sendEvent();
     }
 
     onRecipeChosen2(event: CustomEvent) {
         this.selectedRecipes[1] = event.detail.value;
-        this.events.publish(EventKeys.PLANNING_MODIFIED, this.title, this.selectedRecipes);
+        this.sendEvent();
+    }
+
+    sendEvent() {
+        this.eventsService.planningModified(this.title, this.selectedRecipes);
     }
 
 }

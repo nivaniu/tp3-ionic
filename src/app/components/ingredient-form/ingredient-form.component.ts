@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Events} from 'ionic-angular';
 import {Ingredient} from '../../objects/ingredient/ingredient';
 import {Recipe} from '../../objects/recipe/recipe';
 import {DataProviderService} from '../../services/dataProviders/data-provider.service';
-import {EventKeys} from '../../enums/event-keys.enum';
+import {GlobalEventsService} from '../../services/events/global-events.service';
 
 @Component({
     selector: 'app-ingredient-form',
@@ -13,17 +12,18 @@ import {EventKeys} from '../../enums/event-keys.enum';
 export class IngredientFormComponent implements OnInit {
     desc: string;
     name: string;
-    events: Events;
     ingredients: Ingredient[];
     recipe: Recipe;
     dataProvider: DataProviderService;
 
-    constructor(events: Events, dataProviderService: DataProviderService) {
-        this.events = events;
+    constructor(private eventService: GlobalEventsService, dataProviderService: DataProviderService) {
         this.dataProvider = dataProviderService;
         this.ingredients = [];
-        this.events.subscribe(EventKeys.INGREDIENT_CREATED, (ingredient: Ingredient) => {
-            this.ingredients[this.ingredients.length] = ingredient;
+        this.eventService.onNewIngredientCreated.subscribe(ingredient => {
+            if (ingredient != null) {
+                console.log('new Ingredient recieved', ingredient);
+                this.ingredients[this.ingredients.length] = ingredient;
+            }
         });
     }
 
@@ -33,14 +33,16 @@ export class IngredientFormComponent implements OnInit {
     onClickSave() {
         this.recipe = new Recipe(this.name, this.ingredients, this.desc);
         this.dataProvider.saveRecipe(this.recipe);
-        this.events.publish(EventKeys.NEW_RECIPE_MODAL_CLOSED);
+        console.log('saving recipe to db', this.recipe);
+        this.eventService.newRecipeCreated(this.recipe);
+        this.eventService.closeNewRecipeModal();
     }
 
     onClickCancel() {
-        this.events.publish(EventKeys.NEW_RECIPE_MODAL_CLOSED);
+        this.eventService.closeNewRecipeModal();
     }
 
     validate() {
-        return !(this.ingredients.length !== 0 && this.name.trim() !== '');
+        return !(this.ingredients.length !== 0 && this.name != null && this.name.trim() !== '');
     }
 }

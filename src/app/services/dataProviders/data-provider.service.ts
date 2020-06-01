@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {StorageKeys} from '../../enums/storage-keys.enum';
-import {Events} from 'ionic-angular';
-import {EventKeys} from '../../enums/event-keys.enum';
-import {Week} from '../../objects/week/week';
 import {Recipe} from '../../objects/recipe/recipe';
 import {WeekDays} from '../../enums/week-days.enum';
 import {Ingredient} from '../../objects/ingredient/ingredient';
 import {UniqueIngredients} from '../../objects/unique-ingredients/unique-ingredients';
+import {GlobalEventsService} from '../events/global-events.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,62 +13,30 @@ import {UniqueIngredients} from '../../objects/unique-ingredients/unique-ingredi
 export class DataProviderService {
     storage: Storage;
 
-    constructor(storage: Storage, private events: Events) {
+    constructor(private eventsService: GlobalEventsService, storage: Storage) {
         this.storage = storage;
         this.storage.ready().then(() => {
             console.log(this.storage.keys());
         });
-
     }
 
     private async loadRecipes() {
         return await this.storage.get(StorageKeys.RECIPE);
     }
 
-    private async loadPlanning() {
-        return await this.storage.get(StorageKeys.RECIPES_PLANNING);
-    }
-
     public async getAllRecipes(handler) {
         this.loadRecipes().then(r => handler(r));
     }
 
-    public async getPlanning(handler) {
-        this.loadPlanning().then(w => handler(w));
-    }
 
-    public deleteAllRecipes() {
-        this.storage.remove(StorageKeys.RECIPE);
-    }
-    public deleteAllPlanning() {
-        this.storage.remove(StorageKeys.RECIPES_PLANNING);
-    }
-    public deleteAllIngredients(){
-        this.storage.remove(StorageKeys.INGREDIENTS);
-    }
-    public savePlanning(week: Week) {
-        this.loadPlanning().then(data => {
-            if (data == null) {
-                let weeks: Array<Week>;
-                weeks = new Array<Week>(52);
-                weeks[week.number] = week;
-                this.storage.set(StorageKeys.RECIPES_PLANNING, weeks);
-                return;
-            }
-            data[week.number] = week;
-            this.storage.set(StorageKeys.RECIPES_PLANNING, data);
-        });
-    }
-
-    public saveRecipe(recipe) {
+    public saveRecipe(recipe: Recipe) {
         this.loadRecipes().then(data => {
             if (data == null) {
-                this.storage.set(StorageKeys.RECIPE, [recipe]);
+                this.storage.set(StorageKeys.RECIPE, [recipe]).then(() => this.eventsService.recipeListUpdated());
                 return;
             }
             data[data.length] = recipe;
-            this.storage.set(StorageKeys.RECIPE, data);
-            this.events.publish(EventKeys.NEW_RECIPE_SAVED);
+            this.storage.set(StorageKeys.RECIPE, data).then(() => this.eventsService.recipeListUpdated());
         });
     }
 
@@ -89,7 +55,8 @@ export class DataProviderService {
                 let ww = w as Array<Ingredient>;
                 ww = ww.filter(ing => ing.name !== ingredient.name);
                 if (ww.length !== 0) {
-                    this.storage.set(StorageKeys.INGREDIENTS, ww);
+                    this.storage.set(StorageKeys.INGREDIENTS, ww).then(() => {
+                    });
                 } else {
                     this.storage.remove(StorageKeys.INGREDIENTS).then(handler());
                 }
@@ -126,7 +93,8 @@ export class DataProviderService {
                     });
                     console.log(ingredients);
                     console.log(uniqueIngredients);
-                    this.storage.set(StorageKeys.INGREDIENTS, uniqueIngredients.ingredients);
+                    this.storage.set(StorageKeys.INGREDIENTS, uniqueIngredients.ingredients).then(() => {
+                    });
                     handler(uniqueIngredients.ingredients);
                 }
             });

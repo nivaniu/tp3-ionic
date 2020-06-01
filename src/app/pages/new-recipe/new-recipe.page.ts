@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
-import {Events} from 'ionic-angular';
-import {EventKeys} from '../../enums/event-keys.enum';
+import {GlobalEventsService} from '../../services/events/global-events.service';
 
 @Component({
     selector: 'app-new-recipe',
@@ -12,8 +11,11 @@ export class NewRecipePage implements OnInit {
     modalTitle: string;
     modalId: number;
 
-    constructor(private modalController: ModalController, private navParams: NavParams, private events: Events) {
-        events.subscribe(EventKeys.NEW_RECIPE_MODAL_CLOSED, () => {
+    constructor(
+        private eventsService: GlobalEventsService,
+        private modalController: ModalController,
+        private navParams: NavParams) {
+        eventsService.onNewRecipeModelClosed.subscribe(() => {
             this.closeModal();
         });
     }

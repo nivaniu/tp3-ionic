@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Units} from '../../enums/units/units.enum';
 import {Ingredient} from '../../objects/ingredient/ingredient';
-import {Events} from 'ionic-angular';
-import {EventKeys} from '../../enums/event-keys.enum';
+import {GlobalEventsService} from '../../services/events/global-events.service';
 
 @Component({
     selector: 'app-ingredient-form-units',
@@ -16,11 +15,9 @@ export class IngredientFormUnitsComponent implements OnInit {
     ml = 'ML';
     unit = Units.GRM;
     ingredients: Ingredient[];
-    events: Events;
 
-    constructor(events: Events) {
+    constructor(private eventsService: GlobalEventsService) {
         this.ingredients = [];
-        this.events =  events;
     }
 
     public onUnitsSelected(event) {
@@ -34,7 +31,7 @@ export class IngredientFormUnitsComponent implements OnInit {
 
     public onClickAdd() {
         this.ingredients[this.ingredients.length] = new Ingredient(this.name, this.quantity, this.unit);
-        this.events.publish(EventKeys.INGREDIENT_CREATED, this.ingredients[this.ingredients.length - 1]);
+        this.eventsService.newIngredientCreated(this.ingredients[this.ingredients.length - 1]);
     }
 
     ngOnInit() {

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
-import {Events} from 'ionic-angular';
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
@@ -15,7 +14,6 @@ import {NewRecipePageModule} from './pages/new-recipe/new-recipe.module';
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, NewRecipePageModule, IonicStorageModule.forRoot()],
     providers: [
-        Events,
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
